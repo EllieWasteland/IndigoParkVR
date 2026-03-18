@@ -167,10 +167,26 @@ class LauncherAPI:
         except Exception as e:
             return {"status": "error", "message": msg_err_open.format(e), "hint": hint_err_open}
 
+    def kill_game(self):
+        """Mata el proceso del juego si existe, iterando los procesos activos."""
+        try:
+            for proc in psutil.process_iter(['pid', 'name']):
+                if proc.info['name'] and proc.info['name'].lower() == JUEGO_EJECUTABLE.lower():
+                    proc.kill()
+        except Exception:
+            pass
+
     def close_app(self):
-        if webview.windows:
-            webview.windows[0].destroy()
-        sys.exit(0)
+        """Mata el juego y cierra el launcher."""
+        self.kill_game()
+        
+        try:
+            if webview.windows:
+                webview.windows[0].destroy()
+        except Exception:
+            pass
+            
+        os._exit(0) # Forzamos salida rápida para evitar hilos zombis
 
 if __name__ == "__main__":
     if getattr(sys, 'frozen', False):
@@ -203,5 +219,10 @@ if __name__ == "__main__":
         _t.sleep(0.3)
         api._get_hwnd()
 
+    def on_closing():
+        # Si cerramos con ALT+F4 o desde la barra de tareas, también matamos el juego
+        api.kill_game()
+
     window.events.shown += on_shown
+    window.events.closing += on_closing
     webview.start()

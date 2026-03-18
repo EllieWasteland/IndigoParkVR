@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indigo Park VR - Setup Wizard</title>
-    <!-- Tailwind CSS for rapid styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Tailwind CSS en local -->
+    <script src="tailwind.js"></script>
 
     <style>
         body {
-            font-family: 'Outfit', sans-serif;
+            /* Fuente offline basada en las fuentes modernas del sistema */
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #1a1a1a;
             margin: 0;
             overflow: hidden;
@@ -32,21 +29,14 @@
         .step-content { display: none; }
         .step-content.active { display: block; }
 
-        .stagger-item {
-            opacity: 0;
-            transform: translateY(15px);
-        }
-        .step-content.active .stagger-item {
-            animation: slideUpFade 0.5s ease forwards;
-        }
+        .stagger-item { opacity: 0; transform: translateY(15px); }
+        .step-content.active .stagger-item { animation: slideUpFade 0.5s ease forwards; }
         .step-content.active .stagger-item:nth-child(1) { animation-delay: 0.1s; }
         .step-content.active .stagger-item:nth-child(2) { animation-delay: 0.2s; }
         .step-content.active .stagger-item:nth-child(3) { animation-delay: 0.3s; }
         .step-content.active .stagger-item:nth-child(4) { animation-delay: 0.4s; }
 
-        @keyframes slideUpFade {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
         
         .float-anim { animation: float 4s ease-in-out infinite; }
         .float-anim-delayed { animation: float 4s ease-in-out 2s infinite; }
@@ -91,25 +81,25 @@
     
     <!-- BOTÓN CERRAR -->
     <button onclick="apiCall('close_app')" class="absolute top-6 right-6 z-50 text-white/50 hover:text-white transition-colors focus:outline-none cursor-pointer">
-        <i data-lucide="x" class="w-7 h-7 bg-black/20 backdrop-blur-md rounded-full p-1 border border-white/10"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 bg-black/20 backdrop-blur-md rounded-full p-1 border border-white/10"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
 
     <!-- PANTALLA DE SELECCIÓN DE IDIOMA -->
     <div id="language-selector" class="fixed inset-0 z-[60] flex flex-col items-center justify-center transition-opacity duration-700 opacity-100 backdrop-blur-3xl bg-black/80">
         <div class="absolute inset-0 bg-[url('background.jpg')] bg-cover bg-center opacity-20"></div>
         <div class="relative z-10 flex flex-col items-center px-4">
-            <i data-lucide="globe" class="w-16 h-16 text-white/80 mb-6 float-anim"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-white/80 mb-6 float-anim"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
             <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tight mb-2 drop-shadow-lg text-center">Select Language</h1>
             <h2 class="text-xl md:text-2xl font-light text-white/70 tracking-widest uppercase mb-12 text-center">Selecciona tu idioma</h2>
             
             <div class="flex flex-col sm:flex-row gap-6">
                 <button onclick="selectLang('en')" class="px-8 py-4 w-64 rounded-2xl bg-white/10 border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3 group focus:outline-none cursor-pointer shadow-lg hover:shadow-white/20">
                     <span class="text-xl font-medium">English</span>
-                    <i data-lucide="arrow-right" class="w-5 h-5 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </button>
                 <button onclick="selectLang('es')" class="px-8 py-4 w-64 rounded-2xl bg-white/10 border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-3 group focus:outline-none cursor-pointer shadow-lg hover:shadow-white/20">
                     <span class="text-xl font-medium">Español</span>
-                    <i data-lucide="arrow-right" class="w-5 h-5 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </button>
             </div>
         </div>
@@ -167,13 +157,13 @@
                     <div id="step-2" class="step-content w-full">
                         <div class="stagger-item mt-4 bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col items-center text-center transition-all duration-300 border-dashed" id="folder-card">
                             <div class="w-16 h-16 rounded-full bg-white/10 border border-white/5 flex items-center justify-center mb-4 text-white/80 transition-colors shadow-inner" id="folder-status-icon">
-                                <i data-lucide="folder-search" class="w-8 h-8"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><circle cx="11" cy="15" r="3"/><path d="m15 19-2.1-2.1"/></svg>
                             </div>
                             <h4 class="text-white font-medium mb-2 truncate max-w-full px-2" id="folder-status-title" data-i18n="folder_none">Ninguna carpeta seleccionada</h4>
                             <p class="text-white/60 text-sm mb-6 max-w-xs" id="folder-status-desc" data-i18n="folder_none_desc">Busca la carpeta principal de Indigo Park.</p>
                             
                             <button id="btn-select-folder" class="px-6 py-3 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-white hover:bg-indigo-500/40 transition-all duration-300 flex items-center gap-2 text-sm font-medium focus:outline-none cursor-pointer shadow-md">
-                                <i data-lucide="folder-plus" class="w-4 h-4"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M12 10v6"/><path d="M9 13h6"/></svg>
                                 <span id="btn-folder-text" data-i18n="btn_browse">Examinar...</span>
                             </button>
                         </div>
@@ -185,7 +175,7 @@
                             <div class="space-y-3">
                                 <div class="flex items-start gap-4 bg-white/5 p-4 rounded-xl border border-white/10 transition-transform hover:-translate-y-1 duration-300 shadow-sm">
                                     <div class="bg-gradient-to-br from-indigo-500/20 to-indigo-500/5 p-2.5 rounded-xl border border-indigo-500/30 shrink-0 shadow-inner">
-                                        <i data-lucide="cpu" class="w-5 h-5 text-indigo-300"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-indigo-300"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
                                     </div>
                                     <div>
                                         <h5 class="text-white text-sm font-medium" data-i18n="feature_1_title">Motor UEVR</h5>
@@ -194,7 +184,7 @@
                                 </div>
                                 <div class="flex items-start gap-4 bg-white/5 p-4 rounded-xl border border-white/10 transition-transform hover:-translate-y-1 duration-300 shadow-sm">
                                     <div class="bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 p-2.5 rounded-xl border border-emerald-500/30 shrink-0 shadow-inner">
-                                        <i data-lucide="settings-2" class="w-5 h-5 text-emerald-300"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-300"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/></svg>
                                     </div>
                                     <div>
                                         <h5 class="text-white text-sm font-medium" data-i18n="feature_2_title">Perfil UEVR</h5>
@@ -203,7 +193,7 @@
                                 </div>
                                 <div class="flex items-start gap-4 bg-white/5 p-4 rounded-xl border border-white/10 transition-transform hover:-translate-y-1 duration-300 shadow-sm">
                                     <div class="bg-gradient-to-br from-purple-500/20 to-purple-500/5 p-2.5 rounded-xl border border-purple-500/30 shrink-0 shadow-inner">
-                                        <i data-lucide="monitor-play" class="w-5 h-5 text-purple-300"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-purple-300"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M12 17v4"/><path d="M8 21h8"/><path d="m10 7 5 3-5 3Z"/></svg>
                                     </div>
                                     <div>
                                         <h5 class="text-white text-sm font-medium" data-i18n="feature_3_title">Launcher Personalizado</h5>
@@ -217,7 +207,7 @@
                     <!-- STEP 4 -->
                     <div id="step-4" class="step-content w-full">
                         <div class="stagger-item mt-10 flex flex-col items-center text-center">
-                            <i data-lucide="server-cog" class="w-14 h-14 text-indigo-300/80 mb-5 animate-pulse"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-14 h-14 text-indigo-300/80 mb-5 animate-pulse"><rect width="20" height="8" x="2" y="14" rx="2"/><rect width="20" height="8" x="2" y="2" rx="2"/><path d="M6 18h.01"/><path d="M6 6h.01"/><circle cx="17" cy="6" r="2"/><path d="M15.5 4.5 15 4"/><path d="M18.5 7.5 19 8"/><path d="M15.5 7.5 15 8"/><path d="M18.5 4.5 19 4"/><circle cx="17" cy="18" r="2"/><path d="M15.5 16.5 15 16"/><path d="M18.5 19.5 19 20"/><path d="M15.5 19.5 15 20"/><path d="M18.5 16.5 19 16"/></svg>
                             <p class="text-white/90 text-sm md:text-base leading-relaxed mb-4 max-w-xs" data-i18n="installing_desc">
                                 Copiando archivos y aplicando configuraciones en el directorio del juego...
                             </p>
@@ -232,15 +222,15 @@
                                 <h3 class="text-indigo-200/50 font-semibold mb-4 text-[11px] uppercase tracking-widest" data-i18n="summary_title">Resumen de Instalación</h3>
                                 <ul class="text-white/80 text-sm space-y-3">
                                     <li class="flex items-center justify-between border-b border-white/5 pb-2">
-                                        <span class="flex items-center gap-2"><i data-lucide="gamepad-2" class="w-4 h-4 text-indigo-300"></i> <span data-i18n="summary_mod">Mod</span></span>
+                                        <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-indigo-300"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></svg> <span data-i18n="summary_mod">Mod</span></span>
                                         <span class="text-white font-medium">Indigo Park VR</span>
                                     </li>
                                     <li class="flex items-center justify-between border-b border-white/5 pb-2">
-                                        <span class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-400"></i> <span data-i18n="summary_status">Estado</span></span>
+                                        <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-green-400"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> <span data-i18n="summary_status">Estado</span></span>
                                         <span class="text-green-400 font-medium bg-green-400/10 px-2 py-0.5 rounded-md" data-i18n="summary_status_ok">Completado</span>
                                     </li>
                                     <li class="flex items-center justify-between pb-1">
-                                        <span class="flex items-center gap-2"><i data-lucide="folder" class="w-4 h-4 text-white/70"></i> <span data-i18n="summary_path">Ruta</span></span>
+                                        <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-white/70"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg> <span data-i18n="summary_path">Ruta</span></span>
                                         <span class="text-white/70 font-mono text-xs text-right max-w-[150px] truncate" id="summary-path">...</span>
                                     </li>
                                 </ul>
@@ -249,7 +239,8 @@
                                 Usa el acceso directo <strong class="text-white">"Indigo Park VR"</strong> creado en tu escritorio para iniciar la experiencia.
                             </p>
                             <button onclick="apiCall('close_app')" class="w-full px-8 py-4 rounded-xl bg-indigo-500 text-white font-bold hover:bg-indigo-400 transition-all duration-300 shadow-[0_10px_20px_rgba(99,102,241,0.2)] hover:shadow-[0_15px_30px_rgba(99,102,241,0.3)] hover:-translate-y-1 flex items-center justify-center gap-2 mt-2 focus:outline-none cursor-pointer">
-                                <span data-i18n="btn_close">Cerrar Instalador</span> <i data-lucide="log-out" class="w-5 h-5"></i>
+                                <span data-i18n="btn_close">Cerrar Instalador</span> 
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
                             </button>
                         </div>
                     </div>
@@ -268,11 +259,13 @@
 
                 <div class="flex gap-3 ml-auto">
                     <button id="btn-prev" class="hidden w-11 h-11 rounded-full border border-white/30 bg-white/5 flex items-center justify-center text-white hover:bg-white/20 hover:border-white/50 transition-all duration-300 focus:outline-none cursor-pointer">
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
                     </button>
                     <button id="btn-next" class="px-8 py-3 rounded-full border border-indigo-400/50 bg-indigo-500/20 text-white hover:bg-indigo-500 transition-all duration-300 flex items-center justify-center focus:outline-none font-medium text-sm gap-2 cursor-pointer shadow-md hover:shadow-lg">
                         <span id="next-text" data-i18n="btn_next">Siguiente</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4" id="next-icon"></i>
+                        <span id="next-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </span>
                     </button>
                 </div>
             </div>
@@ -280,6 +273,31 @@
     </main>
 
     <script>
+        // --- MOTOR DE ICONOS OFFLINE (SVG INLINE) ---
+        const SVGS = {
+            arrowRight: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+            download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+            loader: '<path d="M21 12a9 9 0 1 1-6.219-8.56"/>',
+            checkCircle: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+            monitorCheck: '<rect width="20" height="14" x="2" y="3" rx="2"/><path d="M12 17v4"/><path d="M8 21h8"/><path d="m9 10 2 2 4-4"/>',
+            check: '<path d="M20 6 9 17l-5-5"/>',
+            cpu: '<rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>',
+            folderSearch: '<path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><circle cx="11" cy="15" r="3"/><path d="m15 19-2.1-2.1"/>',
+            folderCheck: '<path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="m9 13 2 2 4-4"/>',
+            folderX: '<path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="m14 11-4 4"/><path d="m10 11 4 4"/>',
+            folderPlus: '<path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M12 10v6"/><path d="M9 13h6"/>',
+            gamepad: '<line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/>',
+            monitorPlay: '<rect width="20" height="14" x="2" y="3" rx="2"/><path d="M12 17v4"/><path d="M8 21h8"/><path d="m10 7 5 3-5 3Z"/>',
+            cloudDownload: '<path d="M12 13v8"/><path d="m4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="m8 17 4 4 4-4"/>',
+            xCircle: '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>',
+            refreshCw: '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
+            x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>'
+        };
+
+        function getIcon(name, cls) {
+            return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="${cls}">${SVGS[name]}</svg>`;
+        }
+
         // --- TRANSLATIONS DICTIONARY ---
         const i18n = {
             es: {
@@ -296,103 +314,41 @@
                 step_4_desc: "Por favor, no cierres el instalador.",
                 step_success_title: "¡Instalación Exitosa!",
                 step_success_desc: "El mod Indigo Park VR está instalado y configurado.",
-                
-                btn_next: "Siguiente",
-                btn_install: "Instalar",
-                btn_close: "Cerrar Instalador",
-                
-                system_checking: "Verificando sistema...",
-                system_checking_desc: "Comprobando entorno de ejecución.",
-                system_found: "Sistema Listo",
-                system_found_desc: "El instalador está listo para continuar.",
-                
-                folder_none: "Ninguna carpeta seleccionada",
-                folder_none_desc: "Busca la carpeta principal de Indigo Park.",
-                btn_browse: "Examinar...",
-                btn_change_folder: "Cambiar Carpeta",
-                btn_searching: "Buscando...",
-                btn_retry: "Intentar de nuevo",
-                folder_correct: "Carpeta Correcta",
-                folder_error: "Ejecutable no encontrado",
-                folder_error_desc: "La carpeta seleccionada no contiene los archivos base correctos del juego.",
-                
-                feature_1_title: "Motor UEVR",
-                feature_1_desc: "Se copiarán los inyectores necesarios para habilitar la Realidad Virtual en el motor gráfico.",
-                feature_2_title: "Perfil UEVR",
-                feature_2_desc: "Ajustes preconfigurados (.zip) listos para inyectar la configuración optimizada del juego.",
-                feature_3_title: "Launcher Personalizado",
-                feature_3_desc: "Un acceso directo en el escritorio para iniciar el juego directamente en modo VR.",
-                
-                installing_desc: "Copiando archivos y aplicando configuraciones en el directorio del juego...",
-                installing_wait: "Esto tomará unos segundos.",
-                
-                summary_title: "Resumen de Instalación",
-                summary_mod: "Indigo Park VR",
-                summary_status: "Estado",
-                summary_status_ok: "Completado",
-                summary_path: "Ruta",
+                btn_next: "Siguiente", btn_install: "Instalar", btn_close: "Cerrar Instalador",
+                system_checking: "Verificando sistema...", system_checking_desc: "Comprobando entorno de ejecución.",
+                system_found: "Sistema Listo", system_found_desc: "El instalador está listo para continuar.",
+                folder_none: "Ninguna carpeta seleccionada", folder_none_desc: "Busca la carpeta principal de Indigo Park.",
+                btn_browse: "Examinar...", btn_change_folder: "Cambiar Carpeta", btn_searching: "Buscando...", btn_retry: "Intentar de nuevo",
+                folder_correct: "Carpeta Correcta", folder_error: "Ejecutable no encontrado", folder_error_desc: "La carpeta seleccionada no contiene los archivos base correctos del juego.",
+                feature_1_title: "Motor UEVR", feature_1_desc: "Se copiarán los inyectores necesarios para habilitar la Realidad Virtual en el motor gráfico.",
+                feature_2_title: "Perfil UEVR", feature_2_desc: "Ajustes preconfigurados (.zip) listos para inyectar la configuración optimizada del juego.",
+                feature_3_title: "Launcher Personalizado", feature_3_desc: "Un acceso directo en el escritorio para iniciar el juego directamente en modo VR.",
+                installing_desc: "Copiando archivos y aplicando configuraciones en el directorio del juego...", installing_wait: "Esto tomará unos segundos.",
+                summary_title: "Resumen de Instalación", summary_mod: "Indigo Park VR", summary_status: "Estado", summary_status_ok: "Completado", summary_path: "Ruta",
                 summary_hint: 'Usa el acceso directo <strong class="text-white">"Indigo Park VR"</strong> creado en tu escritorio para iniciar la experiencia.',
-                
-                copying: "Iniciando copia...",
-                copy_success: "¡COPIADO CON ÉXITO!",
-                copy_error: "Error en instalación",
-                copy_error_desc: "Hubo un problema. Cierra e intenta de nuevo."
+                copying: "Iniciando copia...", copy_success: "¡COPIADO CON ÉXITO!", copy_error: "Error en instalación", copy_error_desc: "Hubo un problema. Cierra e intenta de nuevo."
             },
             en: {
                 loader_text: "Starting Installer",
-                step_prefix: "Step",
-                step_of: "of",
-                step_1_title: "VR Preparations",
-                step_1_desc: "Preparing the installation environment.",
-                step_2_title: "Game Directory",
-                step_2_desc: "Select the Indigo Park base folder.",
-                step_3_title: "Ready to Install",
-                step_3_desc: "Review the components that will be integrated into your system.",
-                step_4_title: "Installing Mod",
-                step_4_desc: "Please do not close the installer.",
-                step_success_title: "Installation Successful!",
-                step_success_desc: "The Indigo Park VR mod is installed and configured.",
-                
-                btn_next: "Next",
-                btn_install: "Install",
-                btn_close: "Close Installer",
-                
-                system_checking: "Verifying system...",
-                system_checking_desc: "Checking runtime environment.",
-                system_found: "System Ready",
-                system_found_desc: "The installer is ready to continue.",
-                
-                folder_none: "No folder selected",
-                folder_none_desc: "Locate the main folder of Indigo Park.",
-                btn_browse: "Browse...",
-                btn_change_folder: "Change Folder",
-                btn_searching: "Searching...",
-                btn_retry: "Try Again",
-                folder_correct: "Correct Folder",
-                folder_error: "Executable not found",
-                folder_error_desc: "The selected folder doesn't contain the correct base game files.",
-                
-                feature_1_title: "UEVR Engine",
-                feature_1_desc: "The required injectors to enable Virtual Reality in the graphics engine will be copied.",
-                feature_2_title: "UEVR Profile",
-                feature_2_desc: "Preconfigured settings (.zip) ready to inject optimized configuration out-of-the-box.",
-                feature_3_title: "Custom Launcher",
-                feature_3_desc: "A handy desktop shortcut to launch the game directly in VR mode.",
-                
-                installing_desc: "Copying files and applying settings to your game directory...",
-                installing_wait: "This will take a few seconds.",
-                
-                summary_title: "Installation Summary",
-                summary_mod: "Indigo Park VR",
-                summary_status: "Status",
-                summary_status_ok: "Completed",
-                summary_path: "Path",
+                step_prefix: "Step", step_of: "of",
+                step_1_title: "VR Preparations", step_1_desc: "Preparing the installation environment.",
+                step_2_title: "Game Directory", step_2_desc: "Select the Indigo Park base folder.",
+                step_3_title: "Ready to Install", step_3_desc: "Review the components that will be integrated into your system.",
+                step_4_title: "Installing Mod", step_4_desc: "Please do not close the installer.",
+                step_success_title: "Installation Successful!", step_success_desc: "The Indigo Park VR mod is installed and configured.",
+                btn_next: "Next", btn_install: "Install", btn_close: "Close Installer",
+                system_checking: "Verifying system...", system_checking_desc: "Checking runtime environment.",
+                system_found: "System Ready", system_found_desc: "The installer is ready to continue.",
+                folder_none: "No folder selected", folder_none_desc: "Locate the main folder of Indigo Park.",
+                btn_browse: "Browse...", btn_change_folder: "Change Folder", btn_searching: "Searching...", btn_retry: "Try Again",
+                folder_correct: "Correct Folder", folder_error: "Executable not found", folder_error_desc: "The selected folder doesn't contain the correct base game files.",
+                feature_1_title: "UEVR Engine", feature_1_desc: "The required injectors to enable Virtual Reality in the graphics engine will be copied.",
+                feature_2_title: "UEVR Profile", feature_2_desc: "Preconfigured settings (.zip) ready to inject optimized configuration out-of-the-box.",
+                feature_3_title: "Custom Launcher", feature_3_desc: "A handy desktop shortcut to launch the game directly in VR mode.",
+                installing_desc: "Copying files and applying settings to your game directory...", installing_wait: "This will take a few seconds.",
+                summary_title: "Installation Summary", summary_mod: "Indigo Park VR", summary_status: "Status", summary_status_ok: "Completed", summary_path: "Path",
                 summary_hint: 'Use the <strong class="text-white">"Indigo Park VR"</strong> shortcut created on your desktop to launch the experience.',
-                
-                copying: "Starting copy...",
-                copy_success: "COPIED SUCCESSFULLY!",
-                copy_error: "Installation Error",
-                copy_error_desc: "There was a problem. Please close and try again."
+                copying: "Starting copy...", copy_success: "COPIED SUCCESSFULLY!", copy_error: "Installation Error", copy_error_desc: "There was a problem. Please close and try again."
             }
         };
 
@@ -402,9 +358,7 @@
         function applyTranslations() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (t()[key]) {
-                    el.innerHTML = t()[key];
-                }
+                if (t()[key]) { el.innerHTML = t()[key]; }
             });
             document.getElementById('loader-text').textContent = t().loader_text;
             document.documentElement.lang = currentLang;
@@ -419,12 +373,8 @@
             }
 
             if (window.pywebview && window.pywebview.api) {
-                try {
-                    return await window.pywebview.api[method](...args);
-                } catch (error) {
-                    console.error(`Error procesando ${method}:`, error);
-                    return null;
-                }
+                try { return await window.pywebview.api[method](...args); } 
+                catch (error) { console.error(`Error procesando ${method}:`, error); return null; }
             } else {
                 console.warn(`Simulando API Python: ${method}`, args);
                 if (method === 'check_system') return new Promise(res => setTimeout(() => res(true), 1500));
@@ -435,8 +385,6 @@
             }
         }
 
-        lucide.createIcons();
-
         let currentStep = 1;
         const totalSteps = 4;
         let isFolderSelected = false;
@@ -446,7 +394,7 @@
         const btnNext = document.getElementById('btn-next');
         const btnPrev = document.getElementById('btn-prev');
         const nextText = document.getElementById('next-text');
-        const nextIcon = document.getElementById('next-icon');
+        const nextIconContainer = document.getElementById('next-icon-container');
         const headerIndicator = document.getElementById('step-indicator');
         const headerTitle = document.getElementById('step-title');
         const headerDesc = document.getElementById('step-desc');
@@ -482,7 +430,6 @@
                     checkInitialSystem();
                     updateUI();
                 }, 2000);
-                
             }, 700);
         }
 
@@ -490,11 +437,10 @@
             const card = document.getElementById('system-card');
             
             card.innerHTML = `
-                <i data-lucide="loader-2" class="w-8 h-8 mx-auto text-white/50 animate-spin mb-3"></i>
+                ${getIcon('loader', 'w-8 h-8 mx-auto text-white/50 animate-spin mb-3')}
                 <h4 class="text-white font-medium mb-2">${t().system_checking}</h4>
                 <p class="text-white/60 text-sm">${t().system_checking_desc}</p>
             `;
-            lucide.createIcons();
 
             const isReady = await apiCall('check_system');
             isSystemReady = isReady; 
@@ -505,14 +451,13 @@
                 card.classList.add('bg-green-900/20', 'border-green-500/30');
                 card.innerHTML = `
                     <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-3">
-                        <i data-lucide="check-circle" class="w-6 h-6 text-green-400"></i>
+                        ${getIcon('checkCircle', 'w-6 h-6 text-green-400')}
                     </div>
                     <h4 class="text-white font-medium mb-1">${t().system_found}</h4>
                     <p class="text-white/60 text-sm">${t().system_found_desc}</p>
                 `;
             }
             updateUI(); 
-            lucide.createIcons();
         }
 
         function updateUI() {
@@ -538,19 +483,19 @@
             
             if (currentStep === 1) {
                 nextText.textContent = t().btn_next;
-                nextIcon.setAttribute('data-lucide', 'arrow-right');
+                nextIconContainer.innerHTML = getIcon('arrowRight', 'w-4 h-4');
                 btnNext.disabled = !isSystemReady;
                 btnNext.classList.toggle('opacity-50', !isSystemReady);
                 btnNext.classList.toggle('cursor-not-allowed', !isSystemReady);
             } else if (currentStep === 2) {
                 nextText.textContent = t().btn_next;
-                nextIcon.setAttribute('data-lucide', 'arrow-right');
+                nextIconContainer.innerHTML = getIcon('arrowRight', 'w-4 h-4');
                 btnNext.disabled = !isFolderSelected;
                 btnNext.classList.toggle('opacity-50', !isFolderSelected);
                 btnNext.classList.toggle('cursor-not-allowed', !isFolderSelected);
             } else if (currentStep === 3) {
                 nextText.textContent = t().btn_install;
-                nextIcon.setAttribute('data-lucide', 'download');
+                nextIconContainer.innerHTML = getIcon('download', 'w-4 h-4');
                 btnNext.disabled = false;
                 btnNext.classList.remove('opacity-50', 'cursor-not-allowed');
             } else if (currentStep === 4) {
@@ -560,7 +505,6 @@
             }
 
             updateMainVisual(currentStep);
-            lucide.createIcons();
         }
 
         function updateMainVisual(step) {
@@ -574,13 +518,13 @@
                         <div class="relative flex items-center justify-center w-full h-full">
                             <div class="absolute w-56 h-56 bg-indigo-500/20 rounded-full blur-3xl pulse-ring"></div>
                             <div class="relative z-10 p-6 bg-gradient-to-br from-white/10 to-transparent border border-white/20 rounded-3xl backdrop-blur-md float-anim shadow-2xl">
-                                <i data-lucide="monitor-check" class="w-20 h-20 text-indigo-200"></i>
+                                ${getIcon('monitorCheck', 'w-20 h-20 text-indigo-200')}
                             </div>
                             <div class="absolute top-1/4 right-1/4 p-3 bg-white/5 border border-white/10 rounded-xl backdrop-blur-md float-anim-delayed shadow-lg">
-                                <i data-lucide="check" class="w-6 h-6 text-green-300"></i>
+                                ${getIcon('check', 'w-6 h-6 text-green-300')}
                             </div>
                             <div class="absolute bottom-1/4 left-1/4 p-3 bg-white/5 border border-white/10 rounded-xl backdrop-blur-md float-anim shadow-lg" style="animation-delay: 1s;">
-                                <i data-lucide="cpu" class="w-6 h-6 text-indigo-300"></i>
+                                ${getIcon('cpu', 'w-6 h-6 text-indigo-300')}
                             </div>
                         </div>
                     `;
@@ -588,14 +532,16 @@
                     newHTML = `
                         <div class="relative flex items-center justify-center w-full h-full">
                             <div class="absolute w-56 h-56 bg-indigo-400/10 rounded-full blur-3xl pulse-ring"></div>
-                            <div class="relative z-10 float-anim" id="visual-folder-container">
-                                <i data-lucide="folder-search-2" class="w-32 h-32 text-indigo-200/80 transition-all duration-500 drop-shadow-lg" id="visual-folder-icon"></i>
+                            <div class="relative z-10 float-anim">
+                                <div id="visual-folder-icon" class="transition-all duration-500">
+                                    ${getIcon('folderSearch', 'w-32 h-32 text-indigo-200/80 drop-shadow-lg')}
+                                </div>
                                 <div id="visual-spinner" class="absolute inset-0 m-auto w-16 h-16 border-4 border-transparent border-t-white/80 border-r-white/30 rounded-full spin-slow opacity-0 transition-opacity"></div>
                                 <div id="visual-check" class="absolute -bottom-2 -right-2 p-2.5 bg-green-500/20 border border-green-500/40 rounded-full opacity-0 scale-50 transition-all duration-500 backdrop-blur-md shadow-lg">
-                                    <i data-lucide="check" class="w-6 h-6 text-green-300 stroke-[3]"></i>
+                                    ${getIcon('check', 'w-6 h-6 text-green-300')}
                                 </div>
                                 <div id="visual-cross" class="absolute -bottom-2 -right-2 p-2.5 bg-red-500/20 border border-red-500/40 rounded-full opacity-0 scale-50 transition-all duration-500 backdrop-blur-md shadow-lg">
-                                    <i data-lucide="x" class="w-6 h-6 text-red-300 stroke-[3]"></i>
+                                    ${getIcon('x', 'w-6 h-6 text-red-300')}
                                 </div>
                             </div>
                         </div>
@@ -606,13 +552,13 @@
                              <div class="absolute w-56 h-56 bg-purple-500/20 rounded-full blur-3xl pulse-ring"></div>
                              <div class="relative z-10 flex flex-col items-center justify-center float-anim h-full w-full">
                                   <div class="absolute p-5 bg-gradient-to-tr from-purple-500/20 to-transparent border border-white/10 rounded-2xl transform rotate-12 translate-x-8 -translate-y-4 backdrop-blur-md shadow-xl transition-all duration-500 hover:rotate-6">
-                                      <i data-lucide="cpu" class="w-10 h-10 text-purple-200"></i>
+                                      ${getIcon('cpu', 'w-10 h-10 text-purple-200')}
                                   </div>
                                   <div class="absolute p-6 bg-gradient-to-br from-white/15 to-white/5 border border-white/30 rounded-2xl z-20 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:scale-105">
-                                      <i data-lucide="gamepad-2" class="w-16 h-16 text-white drop-shadow-md"></i>
+                                      ${getIcon('gamepad', 'w-16 h-16 text-white drop-shadow-md')}
                                   </div>
                                   <div class="absolute p-5 bg-gradient-to-tl from-indigo-500/20 to-transparent border border-white/10 rounded-2xl transform -rotate-12 -translate-x-10 translate-y-6 z-10 backdrop-blur-md shadow-xl transition-all duration-500 hover:-rotate-6">
-                                      <i data-lucide="monitor-play" class="w-10 h-10 text-indigo-200"></i>
+                                      ${getIcon('monitorPlay', 'w-10 h-10 text-indigo-200')}
                                   </div>
                              </div>
                         </div>
@@ -621,7 +567,7 @@
                     newHTML = `
                         <div class="relative flex flex-col items-center justify-center w-full h-full p-6 text-center">
                             <div class="absolute w-52 h-52 bg-indigo-500/20 rounded-full blur-3xl pulse-ring"></div>
-                            <i data-lucide="cloud-download" class="w-16 h-16 md:w-20 md:h-20 text-white animate-bounce z-10 mb-8 drop-shadow-lg"></i>
+                            ${getIcon('cloudDownload', 'w-16 h-16 md:w-20 md:h-20 text-white animate-bounce z-10 mb-8 drop-shadow-lg')}
                             
                             <div class="w-full max-w-[220px] bg-black/40 rounded-full h-3 mb-3 overflow-hidden shadow-inner border border-white/10 relative z-10">
                                 <div id="download-progress-fill" class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 h-full rounded-full transition-all duration-300 relative shadow-[0_0_10px_rgba(129,140,248,0.5)]" style="width: 0%">
@@ -638,7 +584,6 @@
                 }
 
                 visualContent.innerHTML = newHTML;
-                lucide.createIcons();
                 visualContent.style.opacity = '1';
                 
                 if(step === 2 && isFolderSelected) {
@@ -651,8 +596,7 @@
         const btnSelectFolder = document.getElementById('btn-select-folder');
         
         btnSelectFolder.addEventListener('click', async () => {
-            btnSelectFolder.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>${t().btn_searching}</span>`;
-            lucide.createIcons();
+            btnSelectFolder.innerHTML = `${getIcon('loader', 'w-4 h-4 animate-spin')}<span>${t().btn_searching}</span>`;
             btnSelectFolder.classList.add('opacity-70', 'cursor-wait');
 
             const vFolder = document.getElementById('visual-folder-icon');
@@ -660,7 +604,7 @@
             const vCross = document.getElementById('visual-cross');
             const vCheck = document.getElementById('visual-check');
             
-            if(vFolder) vFolder.classList.replace('text-indigo-200/80', 'text-white/20');
+            if(vFolder) vFolder.innerHTML = getIcon('folderSearch', 'w-32 h-32 text-white/20 drop-shadow-lg');
             if(vSpinner) vSpinner.classList.replace('opacity-0', 'opacity-100');
             if(vCross) vCross.classList.add('opacity-0', 'scale-50');
             if(vCheck) vCheck.classList.add('opacity-0', 'scale-50');
@@ -675,7 +619,7 @@
                     selectedFolderPath = folder;
                     document.getElementById('summary-path').textContent = folder;
                     
-                    document.getElementById('folder-status-icon').innerHTML = '<i data-lucide="folder-check" class="w-8 h-8 text-green-300"></i>';
+                    document.getElementById('folder-status-icon').innerHTML = getIcon('folderCheck', 'w-8 h-8 text-green-300');
                     document.getElementById('folder-status-icon').classList.add('bg-green-500/20', 'border-green-500/30');
                     
                     const titleEl = document.getElementById('folder-status-title');
@@ -687,14 +631,14 @@
                     document.getElementById('folder-card').classList.add('bg-green-900/10', 'border-green-500/30');
                     document.getElementById('folder-card').classList.remove('bg-white/5', 'border-white/10', 'bg-red-900/10', 'border-red-500/30');
                     
-                    btnSelectFolder.innerHTML = `<i data-lucide="refresh-cw" class="w-4 h-4"></i><span id="btn-folder-text">${t().btn_change_folder}</span>`;
+                    btnSelectFolder.innerHTML = `${getIcon('refreshCw', 'w-4 h-4')}<span id="btn-folder-text">${t().btn_change_folder}</span>`;
                     
                     setFolderVisualSuccess();
                     updateUI();
                 } else {
                     isFolderSelected = false;
                     
-                    document.getElementById('folder-status-icon').innerHTML = '<i data-lucide="x-circle" class="w-8 h-8 text-red-400"></i>';
+                    document.getElementById('folder-status-icon').innerHTML = getIcon('xCircle', 'w-8 h-8 text-red-400');
                     document.getElementById('folder-status-icon').classList.add('bg-red-500/20', 'border-red-500/30');
                     
                     const titleEl = document.getElementById('folder-status-title');
@@ -706,23 +650,22 @@
                     document.getElementById('folder-card').classList.add('bg-red-900/10', 'border-red-500/30');
                     document.getElementById('folder-card').classList.remove('bg-white/5', 'border-white/10', 'bg-green-900/10', 'border-green-500/30');
                     
-                    btnSelectFolder.innerHTML = `<i data-lucide="folder-search" class="w-4 h-4"></i><span id="btn-folder-text">${t().btn_retry}</span>`;
+                    btnSelectFolder.innerHTML = `${getIcon('folderSearch', 'w-4 h-4')}<span id="btn-folder-text">${t().btn_retry}</span>`;
                     
                     setFolderVisualError();
                     updateUI(); 
                 }
             } else {
                 if(!isFolderSelected) {
-                    btnSelectFolder.innerHTML = `<i data-lucide="folder-plus" class="w-4 h-4"></i><span id="btn-folder-text">${t().btn_browse}</span>`;
+                    btnSelectFolder.innerHTML = `${getIcon('folderPlus', 'w-4 h-4')}<span id="btn-folder-text">${t().btn_browse}</span>`;
                 } else {
-                    btnSelectFolder.innerHTML = `<i data-lucide="refresh-cw" class="w-4 h-4"></i><span id="btn-folder-text">${t().btn_change_folder}</span>`;
+                    btnSelectFolder.innerHTML = `${getIcon('refreshCw', 'w-4 h-4')}<span id="btn-folder-text">${t().btn_change_folder}</span>`;
                 }
                 if(vSpinner) vSpinner.classList.replace('opacity-100', 'opacity-0');
-                if(vFolder) vFolder.classList.replace('text-white/20', 'text-indigo-200/80');
+                if(vFolder) vFolder.innerHTML = getIcon('folderSearch', 'w-32 h-32 text-indigo-200/80 drop-shadow-lg');
             }
 
             btnSelectFolder.classList.remove('cursor-wait', 'opacity-70');
-            lucide.createIcons();
         });
 
         function setFolderVisualSuccess() {
@@ -731,12 +674,7 @@
             const vCheck = document.getElementById('visual-check');
             
             if(vSpinner) vSpinner.classList.replace('opacity-100', 'opacity-0');
-            if(vFolder) {
-                vFolder.classList.replace('text-white/20', 'text-green-300');
-                vFolder.classList.replace('text-indigo-200/80', 'text-green-300');
-                vFolder.setAttribute('data-lucide', 'folder-check');
-                lucide.createIcons();
-            }
+            if(vFolder) vFolder.innerHTML = getIcon('folderCheck', 'w-32 h-32 text-green-300 drop-shadow-lg');
             if(vCheck) {
                 vCheck.classList.remove('opacity-0', 'scale-50');
                 vCheck.classList.add('opacity-100', 'scale-100');
@@ -749,12 +687,7 @@
             const vCross = document.getElementById('visual-cross');
             
             if(vSpinner) vSpinner.classList.replace('opacity-100', 'opacity-0');
-            if(vFolder) {
-                vFolder.classList.replace('text-white/20', 'text-red-300');
-                vFolder.classList.replace('text-indigo-200/80', 'text-red-300');
-                vFolder.setAttribute('data-lucide', 'folder-x');
-                lucide.createIcons();
-            }
+            if(vFolder) vFolder.innerHTML = getIcon('folderX', 'w-32 h-32 text-red-300 drop-shadow-lg');
             if(vCross) {
                 vCross.classList.remove('opacity-0', 'scale-50');
                 vCross.classList.add('opacity-100', 'scale-100');
@@ -818,12 +751,11 @@
                         <div class="absolute w-64 h-64 bg-green-500/20 rounded-full blur-3xl pulse-ring" style="animation-duration: 3s;"></div>
                         <div class="w-36 h-36 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-green-400 to-emerald-600 p-1 shadow-[0_0_50px_rgba(74,222,128,0.3)] z-10 transition-transform hover:scale-105 duration-300">
                             <div class="w-full h-full rounded-full bg-black/20 backdrop-blur-md flex items-center justify-center border border-white/20">
-                                <i data-lucide="check" class="w-20 h-20 text-white stroke-[3] drop-shadow-md"></i>
+                                ${getIcon('check', 'w-20 h-20 text-white stroke-[3] drop-shadow-md')}
                             </div>
                         </div>
                     </div>
                 `;
-                lucide.createIcons();
                 visualContent.style.opacity = '1';
             }, 300);
         }
