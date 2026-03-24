@@ -6,7 +6,7 @@ import zipfile
 import subprocess
 import glob
 import json
-import win32com.client  # For desktop shortcuts
+from pyshortcuts import make_shortcut  # Reemplazamos win32com.client por pyshortcuts
 
 def get_base_path():
     # Get execution path (supports PyInstaller)
@@ -74,14 +74,26 @@ class InstallApi:
             with open(config_path, "w", encoding="utf-8") as json_file:
                 json.dump(config_data, json_file, indent=4)
 
-            # Create desktop shortcut
-            shortcut_path = os.path.join(self.desktop_path, "Indigo Park VR.lnk")
-            shell = win32com.client.Dispatch("WScript.Shell")
-            shortcut = shell.CreateShortCut(shortcut_path)
-            shortcut.TargetPath = launcher_dest
-            shortcut.WorkingDirectory = win64_path
-            shortcut.Description = "Indigo Park VR"
-            shortcut.Save()
+            # Crear Acceso Directo usando pyshortcuts
+            try:
+                icon_path = os.path.join(self.base_dir, "logo.ico") # Ruta al icono
+                
+                # Verificamos si existe el icono para evitar errores de PyShortcuts si falta el archivo
+                valid_icon = icon_path if os.path.exists(icon_path) else None
+
+                make_shortcut(
+                    script=launcher_dest,        # El archivo base a ejecutar
+                    executable=launcher_dest,    # Forzamos el ejecutable para evitar errores
+                    name='Indigo Park VR',
+                    description='Indigo Park VR',
+                    icon=valid_icon,             # Pasamos el icono
+                    terminal=False,    
+                    desktop=True,      
+                    startmenu=True     
+                )
+                print("Acceso directo creado exitosamente con pyshortcuts.")
+            except Exception as e:
+                print(f"No se pudo crear el acceso directo: {e}")
 
             return "success"
             
@@ -91,7 +103,8 @@ class InstallApi:
 
     def close_app(self):
         # Close main window
-        webview.windows[0].destroy()
+        if len(webview.windows) > 0:
+            webview.windows[0].destroy()
 
 def main():
     # Initialize and launch the installer UI
