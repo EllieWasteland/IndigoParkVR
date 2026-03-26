@@ -76,17 +76,16 @@ class InstallApi:
 
             # Crear Acceso Directo usando pyshortcuts
             try:
-                icon_path = os.path.join(self.base_dir, "logo.ico") # Ruta al icono
-                
-                # Verificamos si existe el icono para evitar errores de PyShortcuts si falta el archivo
-                valid_icon = icon_path if os.path.exists(icon_path) else None
+                # MODIFICACIÓN: Usamos el propio ejecutable de destino como fuente del icono.
+                # Windows sabe cómo extraer el icono principal de un archivo .exe.
+                valid_icon = launcher_dest if os.path.exists(launcher_dest) else None
 
                 make_shortcut(
                     script=launcher_dest,        # El archivo base a ejecutar
                     executable=launcher_dest,    # Forzamos el ejecutable para evitar errores
                     name='Indigo Park VR',
                     description='Indigo Park VR',
-                    icon=valid_icon,             # Pasamos el icono
+                    icon=valid_icon,             # Ahora pasamos directamente el .exe
                     terminal=False,    
                     desktop=True,      
                     startmenu=True     
